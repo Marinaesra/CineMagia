@@ -91,7 +91,8 @@ fun Login() {
                     Text("Iniciar sesión")
                 }
                 Button(onClick = {}) {
-                    Text("Registrarse""Holaaaaa")
+                    Text("Registrarse")
+                    //Hola
                 }
             }
 
