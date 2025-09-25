@@ -92,7 +92,6 @@ fun Login() {
                 }
                 Button(onClick = {}) {
                     Text("Registrarse")
-                    //Hola
                 }
             }
 

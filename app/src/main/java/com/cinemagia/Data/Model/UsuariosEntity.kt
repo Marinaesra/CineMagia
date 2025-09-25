@@ -1,0 +1,5 @@
+package com.cinemagia.Data.Model
+
+
+class UsuariosEntity {
+}
