@@ -1,4 +1,4 @@
-package com.cinemagia.Vistas
+package com.cinemagia.ui.Vistas
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -28,18 +29,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.cinemagia.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
-fun Login() {
+fun Login(onItemClick: () -> Unit, onItemRegistre:()-> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Row() {
                         Text("CineMagia")
-                     Image(painter = painterResource(id = com.cinemagia.R.drawable.cinemagia), contentDescription = "Logo", modifier = Modifier.padding(start = 8.dp))
+                     Image(painter = painterResource(id = R.drawable.cinemagia), contentDescription = "Logo", modifier = Modifier.padding(start = 8.dp).size(80.dp))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -77,24 +79,22 @@ fun Login() {
                     visualTransformation = PasswordVisualTransformation()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = {
-                    if (email == "marina.example@gmail.com" && password == "1234") {
-                        Toast.makeText(context, "Login exitoso", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(
-                            context,
-                            "Usuario o contraseña incorrectos",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }) {
+                Button(onClick = onItemClick)
+//                    if (email == "marina.example@gmail.com" && password == "1234") {
+//                        Toast.makeText(context, "Login exitoso", Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        Toast.makeText(
+//                            context,
+//                            "Usuario o contraseña incorrectos",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+                     {
                     Text("Iniciar sesión")
                 }
-                Button(onClick = {}) {
+                Button(onClick = onItemRegistre) {
                     Text("Registrarse")
                 }
             }
-
         }
     }
 }
