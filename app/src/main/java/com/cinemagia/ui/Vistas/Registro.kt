@@ -31,7 +31,9 @@ import com.cinemagia.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Registro(onItemClick: () -> Unit) {
+fun Registro(onItemClick: (email: String, password: String) -> Unit) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -48,8 +50,7 @@ fun Registro(onItemClick: () -> Unit) {
             )
         }
     ) { padding ->
-        var email by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
+
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
@@ -69,7 +70,7 @@ fun Registro(onItemClick: () -> Unit) {
                     visualTransformation = PasswordVisualTransformation()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = onItemClick){
+                Button(onClick = {onItemClick(email, password)}){
                     Text("Crear Usuario")
                 }
             }

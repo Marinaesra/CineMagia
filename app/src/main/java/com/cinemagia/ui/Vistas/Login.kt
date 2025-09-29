@@ -34,7 +34,11 @@ import com.cinemagia.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 
-fun Login(onItemClick: () -> Unit, onItemRegistre:()-> Unit) {
+fun Login(onItemClick: (email: String, password: String) -> Unit,
+          onItemRegistre:()-> Unit) {
+    val context = LocalContext.current
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -56,9 +60,7 @@ fun Login(onItemClick: () -> Unit, onItemRegistre:()-> Unit) {
                 .padding(padding)
                 .padding(24.dp)
         ) {
-            val context = LocalContext.current
-            var email by remember { mutableStateOf("") }
-            var password by remember { mutableStateOf("") }
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -79,15 +81,8 @@ fun Login(onItemClick: () -> Unit, onItemRegistre:()-> Unit) {
                     visualTransformation = PasswordVisualTransformation()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Button(onClick = onItemClick)
-//                    if (email == "marina.example@gmail.com" && password == "1234") {
-//                        Toast.makeText(context, "Login exitoso", Toast.LENGTH_SHORT).show()
-//                    } else {
-//                        Toast.makeText(
-//                            context,
-//                            "Usuario o contraseña incorrectos",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
+                Button(onClick = {onItemClick(email, password)})
+
                      {
                     Text("Iniciar sesión")
                 }
@@ -98,3 +93,4 @@ fun Login(onItemClick: () -> Unit, onItemRegistre:()-> Unit) {
         }
     }
 }
+

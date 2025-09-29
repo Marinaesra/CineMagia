@@ -39,11 +39,14 @@ import com.cinemagia.Data.ViewModels.ServiceViewModels
 import com.cinemagia.R
 import com.cinemagia.ui.Vistas.Recursos.CardPelicula
 import kotlinx.coroutines.selects.select
+import androidx.compose.runtime.collectAsState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Catalogo(
     onItemClick: (Pelicula) -> Unit,
+    onIntemFavorita: () -> Unit,
+    onIntemQueVer:() -> Unit,
     vm: ServiceViewModels
 ) {
     LaunchedEffect(Unit) {
@@ -51,7 +54,8 @@ fun Catalogo(
     }
 
     var query by remember { mutableStateOf("") }
-    val peliculas = vm.Peliculas.value
+    val peliculas = vm.Peliculas.collectAsState().value
+    var selectedTab by remember { mutableStateOf("catalogo") }
 
     Scaffold(
         topBar = {
@@ -59,11 +63,6 @@ fun Catalogo(
                 title = {
                     Row {
                         Text("CineMagia")
-                        Image(
-                            painter = painterResource(id = R.drawable.cinemagia),
-                            contentDescription = "Logo",
-                            modifier = Modifier.padding(start = 8.dp).size(80.dp)
-                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -71,34 +70,51 @@ fun Catalogo(
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
+        },
+        bottomBar = {
+
+            NavigationBar {
+                NavigationBarItem(
+                    selected = selectedTab == "catalogo",
+                    onClick = { selectedTab = "catalogo" },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.List,
+                            contentDescription = "Cátalogo"
+                        )
+                    },
+                    label = { Text("Cátalogo") }
+                )
+
+                NavigationBarItem(
+                    selected = selectedTab == "favoritas",
+                    onClick = { selectedTab = "favoritas" },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = "Favoritas"
+                        )
+                    },
+                    label = { Text("Favoritas") }
+                )
+
+                NavigationBarItem(
+                    selected = selectedTab == "que ver",
+                    onClick = { selectedTab = "que ver" },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Bookmark,
+                            contentDescription = "Que Ver"
+                        )
+                    },
+                    label = { Text("Que Ver") }
+                )
+            }
         }
-//        bottomBar = {
-//            NavigationBar {
-//                NavigationBarItem()
-//                selected = selectedTab == "catalogo",
-//                onClick = { seletecTab = "catalogo"},
-//                icon={Icon(imageVector = Icons.AutoMirrored.Filled.List, contentDescription = "Cátalogo")},
-//                label = {Text("Cátalogo")}
-//            }
-//            NavigationBar {
-//                NavigationBarItem()
-//                selected = selectedTab == "favoritas",
-//                onClick = { seletecTab = "favoritas"},
-//                icon={Icon(imageVector = Icons.Default.Favorite, contentDescription = "Favoritas")},
-//                label = {Text("Favoritas")}
-//            }
-//            NavigationBar {
-//                NavigationBarItem()
-//                selected = selectedTab == "que ver",
-//                onClick = { seletecTab = "que ver"},
-//                icon={Icon(imageVector = Icons.Default.Bookmark, contentDescription = "Que Ver")},
-//                label = {Text("Que Ver")}
-//            }
-//        }
+
     ) { padding ->
         Column(   modifier = Modifier
-            .padding(16.dp)
-            .fillMaxSize(),
+            .padding(padding).fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(16.dp))
         {
             OutlinedTextField(
@@ -108,15 +124,15 @@ fun Catalogo(
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                 modifier = Modifier.fillMaxWidth()
             )
-            LazyColumn(modifier = Modifier.padding(padding)) {
+            LazyColumn(modifier = Modifier.padding(6.dp)) {
                 items(
                     items = peliculas,
                     key = { it.id }
                 ) { item ->
                     CardPelicula(
                         pelicula = item,
-                        onToggleFavorita = { /* TODO / },
-                    onToggleQueVer = { / TODO */ }
+                        onToggleFavorita = {  TODO() },
+                    onToggleQueVer = {  TODO()  }
                     )
                     // si quieres click:
                     // Modifier.clickable { onItemClick(item) }

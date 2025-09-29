@@ -89,7 +89,7 @@ fun CardPelicula(
                         if (queVer) {
                             Icon(Icons.Filled.Bookmark, contentDescription = "Quitar de que Ver", tint = MaterialTheme.colorScheme.primary)
                         } else {
-                            Icon(Icons.Outlined.FavoriteBorder, contentDescription = "Añadir a que Ver")
+                            Icon(Icons.Filled.Bookmark, contentDescription = "Añadir a que Ver")
                         }
                     }
                 }
