@@ -13,6 +13,8 @@ class ServiceViewModels(private val repo: ServiceRepository = ServiceRepository(
     val Peliculas = MutableStateFlow<List<Pelicula>>(emptyList())
     val Usuarios = MutableStateFlow<List<Usuario>>(emptyList())
 
+    val UsuariosPeliculas = MutableStateFlow<List<UserMovie>>(emptyList())
+
     suspend fun fetchPeliculas() {
         Peliculas.value = repo.fetchPeliculas()
     }
@@ -22,6 +24,7 @@ class ServiceViewModels(private val repo: ServiceRepository = ServiceRepository(
         Usuarios.value = all
         val found = all.find { it.email.equals(email, ignoreCase = true) }
         val ok = if (found != null && (found.password == password)) {
+            UsuariosPeliculas.value= found.movies
             true
         } else {
             false

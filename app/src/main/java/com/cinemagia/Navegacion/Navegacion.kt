@@ -47,7 +47,7 @@ fun CineMagiaNav() {
             Catalogo(
                 onItemClick = { navController.navigate("detalles") },
                 onIntemFavorita = { navController.navigate("favoritas") },
-                onIntemQueVer = { navController.navigate("favoritas") }, vm
+                onIntemQueVer = { navController.navigate("que ver") }, vm
             )
         }
         composable("registro") {
@@ -65,11 +65,11 @@ fun CineMagiaNav() {
             Detalles(onItemClick = { })
         }
 
-        composable("favorita") {
-            Favoritas(onItemClick = { })
+        composable("favoritas") {
+            Favoritas(vm)
         }
 
-        composable("queVer") {
+        composable("que ver") {
             QueVer(onItemClick = { })
         }
 

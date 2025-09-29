@@ -88,7 +88,7 @@ fun Catalogo(
 
                 NavigationBarItem(
                     selected = selectedTab == "favoritas",
-                    onClick = { selectedTab = "favoritas" },
+                    onClick = {onIntemFavorita() },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Favorite,
@@ -100,7 +100,7 @@ fun Catalogo(
 
                 NavigationBarItem(
                     selected = selectedTab == "que ver",
-                    onClick = { selectedTab = "que ver" },
+                    onClick = { onIntemQueVer() },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Bookmark,
